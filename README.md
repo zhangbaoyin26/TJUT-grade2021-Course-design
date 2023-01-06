@@ -50,7 +50,7 @@
   
   └─stm32f103c8t6硬件I2C卡在以下代码段的bug
   
-  [./USER/IIC_Hardware.c]([zhangbaoyin26/STM32 (github.com)](https://github.com/zhangbaoyin26/STM32)) 
+  [./USER/IIC_Hardware.c](https://github.com/zhangbaoyin26/STM32)
   
    └─void OLED_Clear(void)
   
