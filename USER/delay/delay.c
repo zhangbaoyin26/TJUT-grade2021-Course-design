@@ -1,170 +1,115 @@
 #include "delay\delay.h"
 #include "sys\sys.h"
-////////////////////////////////////////////////////////////////////////////////// 	 
-//���ʹ��ucos,����������ͷ�ļ�����.
+
 #if SYSTEM_SUPPORT_UCOS
-#include "includes.h"					//ucos ʹ��	  
+#include "includes.h"					
 #endif
 
-//All rights reserved
-//********************************************************************************
-//V1.2�޸�˵��
-//�������ж��е��ó�����ѭ���Ĵ���
-//��ֹ��ʱ��׼ȷ,����do while�ṹ!
 
-//V1.3�޸�˵��
-//�����˶�UCOSII��ʱ��֧��.
-//���ʹ��ucosII,delay_init���Զ�����SYSTICK��ֵ,ʹ֮��ucos��TICKS_PER_SEC��Ӧ.
-//delay_ms��delay_usҲ���������ucos�ĸ���.
-//delay_us������ucos��ʹ��,����׼ȷ�Ⱥܸ�,����Ҫ����û��ռ�ö���Ķ�ʱ��?.
-//delay_ms��ucos��,���Ե���OSTimeDly����,��δ����ucosʱ,������delay_usʵ��,�Ӷ�׼ȷ��ʱ
-//����������ʼ������,��������ucos֮��delay_ms������ʱ�ĳ���,ѡ��OSTimeDlyʵ�ֻ���delay_usʵ��.
+static u8  fac_us=0;
+static u16 fac_ms=0;
+#ifdef OS_CRITICAL_METHOD 	
 
-//V1.4�޸�˵�� 20110929
-//�޸���ʹ��ucos,����ucosδ������ʱ��,delay_ms���ж��޷���Ӧ��bug.
-//V1.5�޸�˵�� 20120902
-//��delay_us����ucos��������ֹ����ucos���delay_us��ִ�У����ܵ��µ���ʱ��׼��
-////////////////////////////////////////////////////////////////////////////////// 	 
-static u8  fac_us=0;//us��ʱ������
-static u16 fac_ms=0;//ms��ʱ������
-#ifdef OS_CRITICAL_METHOD 	//���OS_CRITICAL_METHOD������,˵��ʹ��ucosII��.
-//systick�жϷ�����,ʹ��ucosʱ�õ�
 void SysTick_Handler(void)
 {				   
-	OSIntEnter();		//�����ж�
-    OSTimeTick();       //����ucos��ʱ�ӷ������?               
-    OSIntExit();        //���������л����ж�
+	OSIntEnter();		
+    OSTimeTick();                 
+    OSIntExit();        
 }
 #endif
 
-//��ʼ���ӳٺ���
-//��ʹ��ucos��ʱ��,�˺������ʼ��ucos��ʱ�ӽ���
-//SYSTICK��ʱ�ӹ̶�ΪHCLKʱ�ӵ�1/8
-//SYSCLK:ϵͳʱ��
+
 void delay_init()	 
 {
 
-#ifdef OS_CRITICAL_METHOD 	//���OS_CRITICAL_METHOD������,˵��ʹ��ucosII��.
+#ifdef OS_CRITICAL_METHOD 	
 	u32 reload;
 #endif
-	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);	//ѡ���ⲿʱ��  HCLK/8
-	fac_us=SystemCoreClock/8000000;	//Ϊϵͳʱ�ӵ�1/8  
+	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);	
+	fac_us=SystemCoreClock/8000000;	
 	 
-#ifdef OS_CRITICAL_METHOD 	//���OS_CRITICAL_METHOD������,˵��ʹ��ucosII��.
-	reload=SystemCoreClock/8000000;		//ÿ���ӵļ������� ��λΪK	   
-	reload*=1000000/OS_TICKS_PER_SEC;//����OS_TICKS_PER_SEC�趨���ʱ��?
-							//reloadΪ24λ�Ĵ���,����?:16777216,��72M��,Լ��1.86s����	
-	fac_ms=1000/OS_TICKS_PER_SEC;//����ucos������ʱ�����ٵ�λ	   
-	SysTick->CTRL|=SysTick_CTRL_TICKINT_Msk;   	//����SYSTICK�ж�
-	SysTick->LOAD=reload; 	//ÿ1/OS_TICKS_PER_SEC���ж�һ��	
-	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk;   	//����SYSTICK    
+#ifdef OS_CRITICAL_METHOD 	
+	reload=SystemCoreClock/8000000;			   
+	reload*=1000000/OS_TICKS_PER_SEC;
+							
+	fac_ms=1000/OS_TICKS_PER_SEC; 
+	SysTick->CTRL|=SysTick_CTRL_TICKINT_Msk;   	
+	SysTick->LOAD=reload; 		
+	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk;   	  
 #else
-	fac_ms=(u16)fac_us*1000;//��ucos��,����ÿ��ms��Ҫ��systickʱ����   
+	fac_ms=(u16)fac_us*1000;
 #endif
 }								    
 
-#ifdef OS_CRITICAL_METHOD	//ʹ����ucos
-//��ʱnus
-//nusΪҪ��ʱ��us��.		    								   
+#ifdef OS_CRITICAL_METHOD		    								   
 void delay_us(u32 nus)
 {		
 	u32 ticks;
 	u32 told,tnow,tcnt=0;
-	u32 reload=SysTick->LOAD;	//LOAD��ֵ	    	 
-	ticks=nus*fac_us; 			//��Ҫ�Ľ�����	  		 
+	u32 reload=SysTick->LOAD;	    	 
+	ticks=nus*fac_us; 			  		 
 	tcnt=0;
-	told=SysTick->VAL;        	//�ս���ʱ�ļ�����ֵ
+	told=SysTick->VAL;        
 	while(1)
 	{
 		tnow=SysTick->VAL;	
 		if(tnow!=told)
 		{	    
-			if(tnow<told)tcnt+=told-tnow;//����ע��һ��SYSTICK��һ���ݼ��ļ������Ϳ�����.
+			if(tnow<told)tcnt+=told-tnow;
 			else tcnt+=reload-tnow+told;	    
 			told=tnow;
-			if(tcnt>=ticks)break;//ʱ�䳬��/����Ҫ�ӳٵ�ʱ��,���˳�.
+			if(tcnt>=ticks)break;
 		}  
 	}; 									    
 }
-//��ʱnms
-//nms:Ҫ��ʱ��ms��
+
 void delay_ms(u16 nms)
 {	
-	if(OSRunning==TRUE)//���os�Ѿ�������	    
+	if(OSRunning==TRUE)	    
 	{		  
-		if(nms>=fac_ms)//��ʱ��ʱ�����ucos������ʱ������ 
+		if(nms>=fac_ms) 
 		{
-   			OSTimeDly(nms/fac_ms);//ucos��ʱ
+   			OSTimeDly(nms/fac_ms);
 		}
-		nms%=fac_ms;				//ucos�Ѿ��޷��ṩ��ôС����ʱ��,������ͨ��ʽ��ʱ    
+		nms%=fac_ms;				  
 	}
-	delay_us((u32)(nms*1000));	//��ͨ��ʽ��ʱ,��ʱucos�޷���������.
+	delay_us((u32)(nms*1000))
 }
-#else//����ucosʱ
-//��ʱnus
-//nusΪҪ��ʱ��us��.		    								   
+#else
+		    								   
 void delay_us(u32 nus)
 {		
 	u32 temp;	    	 
-	SysTick->LOAD=nus*fac_us; //ʱ�����?	  		 
-	SysTick->VAL=0x00;        //��ռ�����?
-	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;          //��ʼ����	 
+	SysTick->LOAD=nus*fac_us;  
+	SysTick->VAL=0x00;        
+	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;         
 	do
 	{
 		temp=SysTick->CTRL;
 	}
-	while(temp&0x01&&!(temp&(1<<16)));//�ȴ�ʱ�䵽��   
-	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;       //�رռ�����
-	SysTick->VAL =0X00;       //��ռ�����?	 
+	while(temp&0x01&&!(temp&(1<<16)));
+	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;      
+	SysTick->VAL =0X00;      
 }
-//��ʱnms
-//ע��nms�ķ�Χ
-//SysTick->LOADΪ24λ�Ĵ���,����,�����ʱ�?:
-//nms<=0xffffff*8*1000/SYSCLK
-//SYSCLK��λΪHz,nms��λΪms
-//��72M������,nms<=1864 
+
+
+
+
 void delay_ms(u16 nms)
 {	 		  	  
 	u32 temp;		   
-	SysTick->LOAD=(u32)nms*fac_ms;//ʱ�����?(SysTick->LOADΪ24bit)
-	SysTick->VAL =0x00;           //��ռ�����?
-	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;          //��ʼ����  
+	SysTick->LOAD=(u32)nms*fac_ms;
+	SysTick->VAL =0x00;
+	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;         
 	do
 	{
 		temp=SysTick->CTRL;
 	}
-	while(temp&0x01&&!(temp&(1<<16)));//�ȴ�ʱ�䵽��   
-	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;       //�رռ�����
-	SysTick->VAL =0X00;       //��ռ�����?	  	    
+	while(temp&0x01&&!(temp&(1<<16)));
+	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;      
+	SysTick->VAL =0X00;      	  	    
 } 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
