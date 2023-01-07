@@ -9,20 +9,20 @@ extern u32 distance_time;
 /*				function					*/
 void HCSR_GPIO_Config()
 {
-	/*¶¨ÒåÒ»¸öGPIO_InitTypeDefÀàĞÍµÄ½á¹¹Ìå*/
+	/*å®šä¹‰ä¸€ä¸ªGPIO_InitTypeDefç±»å‹çš„ç»“æ„ä½“*/
 		GPIO_InitTypeDef GPIO_InitStructure;
 
-		/*¿ªÆôGPIOBºÍGPIOFµÄÍâÉèÊ±ÖÓ*/
+		/*å¼€å¯GPIOBå’ŒGPIOFçš„å¤–è®¾æ—¶é’Ÿ*/
 		RCC_APB2PeriphClockCmd( RCC_HCSRGPIO_CLK, ENABLE); 
 
-		/*Ñ¡ÔñÒª¿ØÖÆµÄGPIOBÒı½Å*/															   
+		/*é€‰æ‹©è¦æ§åˆ¶çš„GPIOBå¼•è„š*/															   
 		GPIO_InitStructure.GPIO_Pin = HCSR_Triger_Pin;	
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;   	//ÉèÎªÍÆÍìÊä³ö
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;   	//è®¾ä¸ºæ¨æŒ½è¾“å‡º
 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; 
 		GPIO_Init(HCSR_Port, &GPIO_InitStructure);	
 		
 		GPIO_InitStructure.GPIO_Pin = HCSR_Echo_Pin;	
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;   	//ÉèÎªÉÏÀ­ÊäÈë
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;   	//è®¾ä¸ºä¸Šæ‹‰è¾“å…¥
 		GPIO_Init(HCSR_Port, &GPIO_InitStructure);	
 }
 
@@ -31,7 +31,7 @@ void Triger()
 	//macTIM_APBxClock_FUN (macTIM_CLK, ENABLE);
 	triger_time = 0;
 	GPIO_SetBits(HCSR_Port, HCSR_Triger_Pin);
-	while(triger_time<2)				//¶¨Ê±20us
+	while(triger_time<2)				//å®šæ—¶20us
 	{
 		;
 	}
@@ -45,7 +45,7 @@ float Calculation()
 	float distance;
 	
 	distance = (float)distance_time/100000.0 * 340.0 / 2.0;
-	if(distance_time>12&&distance_time<1176)				//²âÁ¿¾«¶È2cmÒÔÉÏ£¬Ğ¡ÓÚ1.5m±íÊ¾ÓĞÉí¸ß
+	if(distance_time>12&&distance_time<1176)
 	{
 		distance = (float)distance_time/100000.0 * 340.0 / 2.0;
 		// distance = distance_time/1000000 * 34000 / 2;
