@@ -1,0 +1,346 @@
+[2022-11-25 14:56:27]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\TimBase\bsp_TiMbase.c", exit code: 1
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\HCSR04\hcsr.c", line 2: Error:  #5: cannot open source input file "bsp_led.h": No such file or directory
+  #include "bsp_led.h"
+                      ^
+.\USER\HCSR04\hcsr.c: 0 warnings, 1 error
+".\USER\EXIT\bsp_exti.c", line 49: Error:  #20: identifier "EXTI_InitTypeDef" is undefined
+  	EXTI_InitTypeDef EXTI_InitStructure;
+  	^
+".\USER\EXIT\bsp_exti.c", line 64: Error:  #20: identifier "EXTI_Line9" is undefined
+    EXTI_InitStructure.EXTI_Line = macEXTI_LINE;
+                                   ^
+".\USER\EXIT\bsp_exti.c", line 65: Error:  #20: identifier "EXTI_Mode_Interrupt" is undefined
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+                                   ^
+".\USER\EXIT\bsp_exti.c", line 66: Error:  #20: identifier "EXTI_Trigger_Rising" is undefined
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising; //上升沿中断
+                                      ^
+".\USER\EXIT\bsp_exti.c", line 68: Warning:  #223-D: function "EXTI_Init" declared implicitly
+    EXTI_Init(&EXTI_InitStructure); 
+    ^
+.\USER\EXIT\bsp_exti.c: 1 warning, 4 errors
+".\USER\TimBase\bsp_TiMbase.c", line 39: Error:  #20: identifier "TIM_TimeBaseInitTypeDef" is undefined
+      TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 55: Error:  #20: identifier "TIM_CounterMode_Up" is undefined
+      TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; 
+                                            ^
+".\USER\TimBase\bsp_TiMbase.c", line 61: Warning:  #223-D: function "TIM_TimeBaseInit" declared implicitly
+      TIM_TimeBaseInit(macTIMx, &TIM_TimeBaseStructure);
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 64: Warning:  #223-D: function "TIM_ClearFlag" declared implicitly
+      TIM_ClearFlag(macTIMx, TIM_FLAG_Update);
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 64: Error:  #20: identifier "TIM_FLAG_Update" is undefined
+      TIM_ClearFlag(macTIMx, TIM_FLAG_Update);
+                             ^
+".\USER\TimBase\bsp_TiMbase.c", line 67: Warning:  #223-D: function "TIM_ITConfig" declared implicitly
+      TIM_ITConfig(macTIMx,TIM_IT_Update,ENABLE);
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 67: Error:  #20: identifier "TIM_IT_Update" is undefined
+      TIM_ITConfig(macTIMx,TIM_IT_Update,ENABLE);
+                           ^
+".\USER\TimBase\bsp_TiMbase.c", line 70: Warning:  #223-D: function "TIM_Cmd" declared implicitly
+      TIM_Cmd(macTIMx, ENABLE);																		
+      ^
+.\USER\TimBase\bsp_TiMbase.c: 4 warnings, 4 errors
+
+[2022-11-25 14:57:59]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\HCSR04\hcsr.c", exit code: 1
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\EXIT\bsp_exti.c", line 49: Error:  #20: identifier "EXTI_InitTypeDef" is undefined
+  	EXTI_InitTypeDef EXTI_InitStructure;
+  	^
+".\USER\EXIT\bsp_exti.c", line 64: Error:  #20: identifier "EXTI_Line9" is undefined
+    EXTI_InitStructure.EXTI_Line = macEXTI_LINE;
+                                   ^
+".\USER\EXIT\bsp_exti.c", line 65: Error:  #20: identifier "EXTI_Mode_Interrupt" is undefined
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+                                   ^
+".\USER\EXIT\bsp_exti.c", line 66: Error:  #20: identifier "EXTI_Trigger_Rising" is undefined
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising; //上升沿中断
+                                      ^
+".\USER\EXIT\bsp_exti.c", line 68: Warning:  #223-D: function "EXTI_Init" declared implicitly
+    EXTI_Init(&EXTI_InitStructure); 
+    ^
+.\USER\EXIT\bsp_exti.c: 1 warning, 4 errors
+".\USER\TimBase\bsp_TiMbase.c", line 38: Error:  #20: identifier "TIM_TimeBaseInitTypeDef" is undefined
+      TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 54: Error:  #20: identifier "TIM_CounterMode_Up" is undefined
+      TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; 
+                                            ^
+".\USER\TimBase\bsp_TiMbase.c", line 60: Warning:  #223-D: function "TIM_TimeBaseInit" declared implicitly
+      TIM_TimeBaseInit(macTIMx, &TIM_TimeBaseStructure);
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 63: Warning:  #223-D: function "TIM_ClearFlag" declared implicitly
+      TIM_ClearFlag(macTIMx, TIM_FLAG_Update);
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 63: Error:  #20: identifier "TIM_FLAG_Update" is undefined
+      TIM_ClearFlag(macTIMx, TIM_FLAG_Update);
+                             ^
+".\USER\TimBase\bsp_TiMbase.c", line 66: Warning:  #223-D: function "TIM_ITConfig" declared implicitly
+      TIM_ITConfig(macTIMx,TIM_IT_Update,ENABLE);
+      ^
+".\USER\TimBase\bsp_TiMbase.c", line 66: Error:  #20: identifier "TIM_IT_Update" is undefined
+      TIM_ITConfig(macTIMx,TIM_IT_Update,ENABLE);
+                           ^
+".\USER\TimBase\bsp_TiMbase.c", line 69: Warning:  #223-D: function "TIM_Cmd" declared implicitly
+      TIM_Cmd(macTIMx, ENABLE);																		
+      ^
+.\USER\TimBase\bsp_TiMbase.c: 4 warnings, 4 errors
+".\USER\HCSR04\hcsr.c", line 2: Error:  #5: cannot open source input file "bsp_led.h": No such file or directory
+  #include "bsp_led.h"
+                      ^
+.\USER\HCSR04\hcsr.c: 0 warnings, 1 error
+
+[2022-11-25 14:58:25]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\HCSR04\hcsr.c", exit code: 1
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\EXIT\bsp_exti.c", line 49: Error:  #20: identifier "EXTI_InitTypeDef" is undefined
+  	EXTI_InitTypeDef EXTI_InitStructure;
+  	^
+".\USER\EXIT\bsp_exti.c", line 64: Error:  #20: identifier "EXTI_Line9" is undefined
+    EXTI_InitStructure.EXTI_Line = macEXTI_LINE;
+                                   ^
+".\USER\EXIT\bsp_exti.c", line 65: Error:  #20: identifier "EXTI_Mode_Interrupt" is undefined
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+                                   ^
+".\USER\EXIT\bsp_exti.c", line 66: Error:  #20: identifier "EXTI_Trigger_Rising" is undefined
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising; //上升沿中断
+                                      ^
+".\USER\EXIT\bsp_exti.c", line 68: Warning:  #223-D: function "EXTI_Init" declared implicitly
+    EXTI_Init(&EXTI_InitStructure); 
+    ^
+.\USER\EXIT\bsp_exti.c: 1 warning, 4 errors
+".\USER\HCSR04\hcsr.c", line 2: Error:  #5: cannot open source input file "bsp_led.h": No such file or directory
+  #include "bsp_led.h"
+                      ^
+.\USER\HCSR04\hcsr.c: 0 warnings, 1 error
+
+[2022-11-25 14:59:03]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\stm32f10x_it.c", exit code: 1
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\stm32f10x_it.c", line 160: Warning:  #223-D: function "TIM_GetITStatus" declared implicitly
+  	if ( TIM_GetITStatus( macTIMx, TIM_IT_Update) != RESET ) 
+  	     ^
+".\USER\stm32f10x_it.c", line 160: Error:  #20: identifier "macTIMx" is undefined
+  	if ( TIM_GetITStatus( macTIMx, TIM_IT_Update) != RESET ) 
+  	                      ^
+".\USER\stm32f10x_it.c", line 160: Error:  #20: identifier "TIM_IT_Update" is undefined
+  	if ( TIM_GetITStatus( macTIMx, TIM_IT_Update) != RESET ) 
+  	                               ^
+".\USER\stm32f10x_it.c", line 162: Error:  #20: identifier "triger_time" is undefined
+  		triger_time++;
+  		^
+".\USER\stm32f10x_it.c", line 163: Error:  #20: identifier "echo_time" is undefined
+  		echo_time++;
+  		^
+".\USER\stm32f10x_it.c", line 164: Warning:  #223-D: function "TIM_ClearITPendingBit" declared implicitly
+  		TIM_ClearITPendingBit( macTIMx , TIM_FLAG_Update);  		 
+  		^
+".\USER\stm32f10x_it.c", line 164: Error:  #20: identifier "TIM_FLAG_Update" is undefined
+  		TIM_ClearITPendingBit( macTIMx , TIM_FLAG_Update);  		 
+  		                                 ^
+".\USER\stm32f10x_it.c", line 171: Warning:  #223-D: function "EXTI_GetITStatus" declared implicitly
+  	if(EXTI_GetITStatus(macEXTI_LINE) != RESET) 
+  	   ^
+".\USER\stm32f10x_it.c", line 171: Error:  #20: identifier "macEXTI_LINE" is undefined
+  	if(EXTI_GetITStatus(macEXTI_LINE) != RESET) 
+  	                    ^
+".\USER\stm32f10x_it.c", line 173: Warning:  #223-D: function "macTIM_APBxClock_FUN" declared implicitly
+  		macTIM_APBxClock_FUN (macTIM_CLK, ENABLE);
+  		^
+".\USER\stm32f10x_it.c", line 173: Error:  #20: identifier "macTIM_CLK" is undefined
+  		macTIM_APBxClock_FUN (macTIM_CLK, ENABLE);
+  		                      ^
+".\USER\stm32f10x_it.c", line 174: Error:  #20: identifier "echo_time" is undefined
+  		echo_time = 0;
+  		^
+".\USER\stm32f10x_it.c", line 175: Warning:  #223-D: function "EXTI_ClearITPendingBit" declared implicitly
+  		EXTI_ClearITPendingBit(macEXTI_LINE);     
+  		^
+.\USER\stm32f10x_it.c: 5 warnings, 8 errors
+
+[2022-11-25 14:59:49]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol SysTick_Delay_ms (referred from main.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2022-11-25 15:01:15]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol SysTick_Delay_ms (referred from main.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2022-11-25 15:02:02]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol SysTick_Delay_ms (referred from main.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2022-11-25 15:02:29]	[done]
+	build successfully !
+
+[2022-11-25 15:05:04]	[done]
+	build successfully !
+
+[2022-11-25 15:05:10]	[done]
+	build successfully !
+
+[2022-11-25 15:05:45]	[done]
+	build successfully !
+
+[2022-11-25 15:07:02]	[done]
+	build successfully !
+
+[2022-11-25 15:07:14]	[done]
+	build successfully !
+
+[2022-11-25 15:08:52]	[done]
+	build successfully !
+
+[2022-11-25 15:09:23]	[done]
+	build successfully !
+
+[2022-11-25 15:09:29]	[done]
+	build successfully !
+
+[2022-11-25 15:09:41]	[done]
+	build successfully !
+
+[2022-11-25 15:10:08]	[done]
+	build successfully !
+
+[2022-11-25 15:21:45]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\main.c", exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\main.c", line 93: Error:  #31: expression must have integral type
+      disarr[4] = (dis)%10;
+                  ^
+".\USER\main.c", line 94: Error:  #31: expression must have integral type
+      disarr[5] = (dis*10)%10;
+                  ^
+".\USER\main.c", line 95: Error:  #31: expression must have integral type
+      disarr[6] = (dis*100)%10;
+                  ^
+".\USER\main.c", line 97: Error:  #31: expression must have integral type
+      disarr[8] = (dis*1000)%10;
+                  ^
+".\USER\main.c", line 98: Error:  #31: expression must have integral type
+      disarr[9] = (dis*10000)%10; 
+                  ^
+.\USER\main.c: 0 warnings, 5 errors
+
+[2022-11-25 15:22:44]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\main.c", exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\main.c", line 93: Error:  #31: expression must have integral type
+        disarr[4] = (dis)%10;
+                    ^
+".\USER\main.c", line 94: Error:  #31: expression must have integral type
+        disarr[5] = (dis*10)%10;
+                    ^
+".\USER\main.c", line 95: Error:  #31: expression must have integral type
+        disarr[6] = (dis*100)%10;
+                    ^
+".\USER\main.c", line 97: Error:  #31: expression must have integral type
+        disarr[8] = (dis*1000)%10;
+                    ^
+".\USER\main.c", line 98: Error:  #31: expression must have integral type
+        disarr[9] = (dis*10000)%10; 
+                    ^
+.\USER\main.c: 0 warnings, 5 errors
+
+[2022-11-25 15:24:32]	[done]
+	build successfully !
+
+[2022-11-25 15:26:47]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\main.c", exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\main.c", line 103: Error:  #31: expression must have integral type
+        disarr[4] = dis%100000;
+                    ^
+".\USER\main.c", line 104: Error:  #31: expression must have integral type
+        disarr[5] = dis%10000;
+                    ^
+".\USER\main.c", line 105: Error:  #31: expression must have integral type
+        disarr[6] = dis%1000;
+                    ^
+".\USER\main.c", line 107: Error:  #31: expression must have integral type
+        disarr[8] = dis%100;
+                    ^
+".\USER\main.c", line 108: Error:  #31: expression must have integral type
+        disarr[9] = dis%10;
+                    ^
+.\USER\main.c: 0 warnings, 5 errors
+
+[2022-11-25 15:28:16]	compilation failed at : "d:\project\f103c8t6\course_project_building\USER\main.c", exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+".\USER\main.c", line 103: Error:  #31: expression must have integral type
+        disarr[4] = (dis/100000)%10;
+                    ^
+".\USER\main.c", line 104: Error:  #31: expression must have integral type
+        disarr[5] = (dis/10000)%10;
+                    ^
+".\USER\main.c", line 105: Error:  #31: expression must have integral type
+        disarr[6] = (dis/1000)%10;
+                    ^
+".\USER\main.c", line 107: Error:  #31: expression must have integral type
+        disarr[8] = (dis/100)%10;
+                    ^
+".\USER\main.c", line 108: Error:  #31: expression must have integral type
+        disarr[9] = (dis/10)%10;
+                    ^
+.\USER\main.c: 0 warnings, 5 errors
+
+[2022-11-25 15:28:54]	[done]
+	build successfully !
+
+[2022-11-25 15:31:53]	[done]
+	build successfully !
+
+[2022-11-25 15:34:47]	[done]
+	build successfully !
+
+[2022-11-25 15:36:18]	[done]
+	build successfully !
+
+[2022-11-25 15:36:45]	[done]
+	build successfully !
+
+[2022-11-25 15:38:03]	[done]
+	build successfully !
+
+[2022-11-25 15:40:22]	[done]
+	build successfully !
+
+[2022-11-25 15:41:15]	[done]
+	build successfully !
+
+[2022-11-25 15:42:17]	[done]
+	build successfully !
+
+[2022-11-25 15:42:48]	[done]
+	build successfully !
+
+[2022-11-25 15:44:02]	[done]
+	build successfully !
+
+[2022-11-25 15:44:35]	[done]
+	build successfully !
+
