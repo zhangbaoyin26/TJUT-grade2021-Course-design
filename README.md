@@ -64,12 +64,14 @@
 
 ### 文件说明
 
-| 根目录       | Funcation                   |
-|:--------- |:---------------------------:|
-| .vscode   | vscode编译和调试的配置              |
-| build     | 编译产出的文件，包括hex, elf, bin, .o |
-| Libraries | stm32f10x固件库函数              |
-| USER      | 执行函数，main                   |
+| 根目录                                    | Funcation                   |
+|:-------------------------------------- |:---------------------------:|
+| .vscode                                | vscode编译和调试的配置              |
+| build                                  | 编译产出的文件，包括hex, elf, bin, .o |
+| Libraries                              | stm32f10x固件库函数              |
+| USER                                   | 执行函数，main                   |
+| lcEDA_PCB                              | PCB+原理图(嘉立创EDA-Pro)         |
+| course_project_building.code-workspace | vscode+EIDE项目启动文件           |
 
 | USER/        | Funcation     |
 |:------------ |:-------------:|
@@ -287,9 +289,9 @@ ROM: [####                ] 18.2%       11.6KB/64.0KB
 
 如果收集到的dis在**\[2cm， 10cm\]**，发送数据到**串口上位机**
 
-<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/DIsconnect.jpg" alt="" width="450">
+<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/DIsconnect.jpg" alt="" width="336">
 
-<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E4%B8%AD.png" alt="" width="700">
+<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E4%B8%AD.png" alt="" width="626">
 
 ---
 
