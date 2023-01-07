@@ -277,19 +277,19 @@ ROM: [####                ] 18.2%       11.6KB/64.0KB
 
 ![](https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%AE%9E%E7%89%A9%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5%E5%9B%BE.jpg)
 
-开启电源，默认0.96OLED显示屏会显示"disconnect"
+开启电源，默认0.96OLED显示屏会显示"**disconnect**"
 
-手机端口连接SSID：CA: 3D: 2A: 12: 77: 78后，会显示“Connecting...”字样
+手机端口连接SSID：CA: 3D: 2A: 12: 77: 78后，会显示“**Connecting...**”字样
 
-2s后显示”Connected  dis：000.00cm“
+2s后显示”**Connected  dis：000.00cm**“
 
-此时已经可以开始接受数据，超声波测距模块也开始工作，每隔0.5s采集一次距离信息，OLED屏幕也每隔0.5s刷新一次
+此时已经可以开始接受数据，超声波测距模块也开始工作，每隔**0.5s**采集一次距离信息，OLED屏幕也每隔**0.5s**刷新一次
 
-如果收集到的dis在[2cm， 10cm]，发送数据到串口上位机
+如果收集到的dis在**\[2cm， 10cm\]**，发送数据到**串口上位机**
 
-<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/DIsconnect.jpg" alt="" width="336">
+<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/DIsconnect.jpg" alt="" width="450">
 
-<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E4%B8%AD.png" alt="" width="626">
+<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E4%B8%AD.png" alt="" width="700">
 
 ---
 
