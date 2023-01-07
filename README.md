@@ -16,11 +16,7 @@
 
 - 片内外设：串口USART1，通用定时器TIM2，PB9中断线EXIT9
 
-
-
 ----
-
-
 
 ### 任务分配
 
@@ -50,7 +46,7 @@
   
   └─stm32f103c8t6硬件I2C卡在以下代码段的bug
   
-  [./USER/IIC_Hardware.c](https://github.com/zhangbaoyin26/STM32)
+  [./USER/IIC_Hardware.c]([zhangbaoyin26/STM32 (github.com)](https://github.com/zhangbaoyin26/STM32)) 
   
    └─void OLED_Clear(void)
   
@@ -64,11 +60,7 @@
 
 - [x] PCB电路板的绘制
 
-
-
 ***
-
-
 
 ### 文件说明
 
@@ -88,11 +80,7 @@
 | oled         | 0.96寸OLED驱动函数 |
 | usart        | 向蓝牙串口发送数据     |
 
-
-
 ---
-
-
 
 ### 硬件设计
 
@@ -111,8 +99,6 @@
 
   <img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/GIFTemp_C4C.gif" alt="" data-align="inline" width="386">
 
-
-
 >     给Trig一个至少10us的高电位信号后，HC-SR04内部会以40 KHz发射八个脉冲的声音脉冲，在空气中传播（Speed=340m/s）
 > 
 >     发送完脉冲信号后，HC-SR04会立马吧Echo拉高，等待回波信号产生
@@ -123,11 +109,29 @@
 
 - **distance = echo_time * Speed / 2**
 
+##### PCB制版文件
 
+>     PCB画板使用嘉立创EDA，在基本硬件基础上增加了EEPROM存储异常用户数据，EEPROM的A0A1A2 = 111，IIC地址位1010A3A2A1->1010111->0x57
+> 
+>     后续会增加的功能：
+> 
+> - DS1302时钟芯片
+> 
+> - 增加电源管理，usb可为18650充电，自动选择从usb或18650取电
+
+- **PCB原理图**
+
+![](https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/PCB%E5%8E%9F%E7%90%86%E5%9B%BE.png)
+
+- 3D渲染图
+
+    背板可接两节18650电池（电池座焊盘已预留），第一步降压到5v，第二降压到3v3
+
+    JDY-31-SPP蓝牙串口模块下没有铺铜
+
+![3D渲染图.png](https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/3D%E6%B8%B2%E6%9F%93%E5%9B%BE.png)
 
 ---
-
- 
 
 ### 软件设计
 
@@ -252,11 +256,45 @@ void macEXTI_INT_FUNCTION (void)
 }
 ```
 
+---
 
+### 项目展示
 
+##### 构建工程sRAM和FLASH占用情况
+
+```c
+Total RO  Size (Code + RO Data)                11856 (  11.58kB)
+Total RW  Size (RW Data + ZI Data)              1192 (   1.16kB)
+Total ROM Size (Code + RO Data + RW Data)      11920 (  11.64kB)
+
+RAM: [#                   ] 5.8%        1.2KB/20.0KB
+ROM: [####                ] 18.2%       11.6KB/64.0KB
+```
+
+##### 硬件展示
+
+根据管脚定义完成电路连接后如下图
+
+![](https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%AE%9E%E7%89%A9%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5%E5%9B%BE.jpg)
+
+开启电源，默认0.96OLED显示屏会显示"disconnect"
+
+手机端口连接SSID：CA: 3D: 2A: 12: 77: 78后，会显示“Connecting...”字样
+
+2s后显示”Connected  dis：000.00cm“
+
+此时已经可以开始接受数据，超声波测距模块也开始工作，每隔0.5s采集一次距离信息，OLED屏幕也每隔0.5s刷新一次
+
+如果收集到的dis在[2cm， 10cm]，发送数据到串口上位机
+
+<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/DIsconnect.jpg" alt="" width="336">
+
+<img title="" src="https://github.com/zhangbaoyin26/TJUT-grade2021-Course-design/blob/main/image/%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E4%B8%AD.png" alt="" width="626">
 
 ---
 
+### Bug
 
+- 硬件IIC1能寻址，相应到从设备的ACK信号，但停止一次通信后，第二次通信会卡在第一次发送数据的阶段
 
-### 项目展示
+- delay函数中断优先级被抢断，导致延迟不稳定，容易超时响应
