@@ -1,4 +1,0 @@
-arm-none-eabi-objcopy --update-section ER_IROM1="d:\project\f103c8t6\course_project_building\build\Target 1\course_project_building.bin" "d:\project\f103c8t6\course_project_building\build\Target 1\course_project_building.axf" "d:\project\f103c8t6\course_project_building\build\Target 1\course_project_building.elf"
-
-arm-none-eabi-objcopy: d:\project\f103c8t6\course_project_building\build\Target 1\course_project_building.elf: warning: allocated section `RW_IRAM1' not in segment
-
