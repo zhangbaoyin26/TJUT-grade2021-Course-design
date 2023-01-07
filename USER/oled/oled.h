@@ -1,20 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//???????????????��????????????????????????��????
-//  ?? ?? ??   : main.c
-//  ?? ?? ??   : v2.0
-//  ??    ??   : Evk123
-//  ????????   : 2014-0101
-//  ??????   : 
-//  ????????   : 0.69??OLED ??????????(STM32F103ZE???IIC)
-//              ???: 
-//              ----------------------------------------------------------------
-//              GND   ?????
-//              VCC   ??5V??3.3v???
-//              SCL   ??PD6??SCL??
-//              SDA   ??PD7??SDA??            
-//              ----------------------------------------------------------------
-//All rights reserved
-//////////////////////////////////////////////////////////////////////////////////
 #ifndef __OLED_H
 #define __OLED_H			  	 
 #include "sys\sys.h"
@@ -37,11 +20,10 @@
 #define OLED_SDIN_Set() GPIO_SetBits(GPIOA,GPIO_Pin_6)
 
  		     
-#define OLED_CMD  0	//��????
-#define OLED_DATA 1	//��????
+#define OLED_CMD  0
+#define OLED_DATA 1
 
-
-//OLED?????��???
+//OLED
 void GPIO_Conf();
 void OLED_WR_Byte(unsigned dat,unsigned cmd);  
 void OLED_Display_On(void);
@@ -62,6 +44,7 @@ void Delay_50ms(unsigned int Del_50ms);
 void Delay_1ms(unsigned int Del_1ms);
 void fill_picture(unsigned char fill_Data);
 void Picture();
+// SoftWareI2C
 void IIC_Start();
 void IIC_Stop();
 void Write_IIC_Command(unsigned char IIC_Command);
@@ -71,6 +54,3 @@ void Write_IIC_Byte(unsigned char IIC_Byte);
 void IIC_Wait_Ack();
 #endif  
 	 
-
-
-
