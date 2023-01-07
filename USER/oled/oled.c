@@ -1,27 +1,8 @@
-//////////////////////////////////////////////////////////////////////////////////
-//������ֻ��ѧϰʹ�ã�δ���������ɣ��������������κ���;
-//  �� �� ��   : main.c
-//  �� �� ��   : v2.0
-//  ��    ��   : Evk123
-//  ��������   : 2014-0101
-//  ����޸�   :
-//  ��������   : 0.69��OLED �ӿ���ʾ����(STM32F103ZEϵ��IIC)
-//              ˵��:
-//              ----------------------------------------------------------------
-//              GND   ��Դ��
-//              VCC   ��5V��3.3v��Դ
-//              SCL   ��PD6��SCL��
-//              SDA   ��PD7��SDA��
-//              ----------------------------------------------------------------
-// All rights reserved
-//////////////////////////////////////////////////////////////////////////////////?
-
 #include "oled.h"
 #include "stdlib.h"
 #include "oledfont.h"
 #include "delay\delay.h"
-// OLED���Դ�
-//��Ÿ�ʽ����.
+
 //[0]0 1 2 3 ... 127
 //[1]0 1 2 3 ... 127
 //[2]0 1 2 3 ... 127
@@ -59,7 +40,7 @@ void IIC_Stop()
 void IIC_Wait_Ack()
 {
 
-    // GPIOB->CRH &= 0XFFF0FFFF;	//����PB12Ϊ��������ģʽ
+    // GPIOB->CRH &= 0XFFF0FFFF;	
     // GPIOB->CRH |= 0x00080000;
     //	OLED_SDA = 1;
     //	delay_us(1);
@@ -67,9 +48,9 @@ void IIC_Wait_Ack()
     // delay_us(50000);
     /*	while(1)
         {
-            if(!OLED_SDA)				//�ж��Ƿ���յ�OLED Ӧ���ź�
+            if(!OLED_SDA)				
             {
-                //GPIOB->CRH &= 0XFFF0FFFF;	//����PB12Ϊͨ���������ģʽ
+                //GPIOB->CRH &= 0XFFF0FFFF;	
                 //GPIOB->CRH |= 0x00030000;
                 return;
             }
@@ -190,7 +171,7 @@ void Delay_1ms(unsigned int Del_1ms)
     }
 }
 
-//��������
+
 
 void OLED_Set_Pos(unsigned char x, unsigned char y)
 {
@@ -198,28 +179,28 @@ void OLED_Set_Pos(unsigned char x, unsigned char y)
     OLED_WR_Byte(((x & 0xf0) >> 4) | 0x10, OLED_CMD);
     OLED_WR_Byte((x & 0x0f), OLED_CMD);
 }
-//����OLED��ʾ
+
 void OLED_Display_On(void)
 {
-    OLED_WR_Byte(0X8D, OLED_CMD); // SET DCDC����
+    OLED_WR_Byte(0X8D, OLED_CMD); // SET DCDC
     OLED_WR_Byte(0X14, OLED_CMD); // DCDC ON
     OLED_WR_Byte(0XAF, OLED_CMD); // DISPLAY ON
 }
-//�ر�OLED��ʾ
+
 void OLED_Display_Off(void)
 {
     OLED_WR_Byte(0X8D, OLED_CMD); // SET DCDC����
     OLED_WR_Byte(0X10, OLED_CMD); // DCDC OFF
     OLED_WR_Byte(0XAE, OLED_CMD); // DISPLAY OFF
 }
-//��������,������,������Ļ�Ǻ�ɫ��!��û����һ��!!!
+
 void OLED_Clear(void)
 {
     u8 i, n;
     for (i = 0; i < 8; i++) {
-        OLED_WR_Byte(0xb0 + i, OLED_CMD); //����ҳ��ַ��0~7��
-        OLED_WR_Byte(0x00, OLED_CMD);     //������ʾλ�á��е͵�ַ
-        OLED_WR_Byte(0x10, OLED_CMD);     //������ʾλ�á��иߵ�ַ
+        OLED_WR_Byte(0xb0 + i, OLED_CMD); 
+        OLED_WR_Byte(0x00, OLED_CMD);     ַ
+        OLED_WR_Byte(0x10, OLED_CMD);     
         for (n = 0; n < 128; n++) OLED_WR_Byte(0, OLED_DATA);
     } //������ʾ
 }
@@ -227,21 +208,18 @@ void OLED_On(void)
 {
     u8 i, n;
     for (i = 0; i < 8; i++) {
-        OLED_WR_Byte(0xb0 + i, OLED_CMD); //����ҳ��ַ��0~7��
-        OLED_WR_Byte(0x00, OLED_CMD);     //������ʾλ�á��е͵�ַ
-        OLED_WR_Byte(0x10, OLED_CMD);     //������ʾλ�á��иߵ�ַ
+        OLED_WR_Byte(0xb0 + i, OLED_CMD); 
+        OLED_WR_Byte(0x00, OLED_CMD);     ַ
+        OLED_WR_Byte(0x10, OLED_CMD);     
         for (n = 0; n < 128; n++) OLED_WR_Byte(1, OLED_DATA);
-    } //������ʾ
+    }
 }
-//��ָ��λ����ʾһ���ַ�,���������ַ�
 // x:0~127
 // y:0~63
-// mode:0,������ʾ;1,������ʾ
-// size:ѡ������ 16/12
 void OLED_ShowChar(u8 x, u8 y, u8 chr, u8 Char_Size)
 {
     unsigned char c = 0, i = 0;
-    c = chr - ' '; //�õ�ƫ�ƺ��ֵ
+    c = chr - ' ';ֵ
     if (x > Max_Column - 1) {
         x = 0;
         y = y + 2;
@@ -259,19 +237,15 @@ void OLED_ShowChar(u8 x, u8 y, u8 chr, u8 Char_Size)
             OLED_WR_Byte(F6x8[c][i], OLED_DATA);
     }
 }
-// m^n����
+// m^n
 u32 oled_pow(u8 m, u8 n)
 {
     u32 result = 1;
     while (n--) result *= m;
     return result;
 }
-//��ʾ2������
-// x,y :�������
-// len :���ֵ�λ��
-// size:�����С
-// mode:ģʽ	0,���ģʽ;1,����ģʽ
-// num:��ֵ(0~4294967295);
+/
+
 void OLED_ShowNum(u8 x, u8 y, u32 num, u8 len, u8 size2)
 {
     u8 t, temp;
@@ -288,7 +262,7 @@ void OLED_ShowNum(u8 x, u8 y, u32 num, u8 len, u8 size2)
         OLED_ShowChar(x + (size2 / 2) * t, y, temp + '0', size2);
     }
 }
-//��ʾһ���ַ��Ŵ�
+
 void OLED_ShowString(u8 x, u8 y, u8 *chr, u8 Char_Size)
 {
     unsigned char j = 0;
@@ -302,7 +276,7 @@ void OLED_ShowString(u8 x, u8 y, u8 *chr, u8 Char_Size)
         j++;
     }
 }
-//��ʾ����
+
 void OLED_ShowCHinese(u8 x, u8 y, u8 no)
 {
     u8 t, adder = 0;
@@ -317,7 +291,7 @@ void OLED_ShowCHinese(u8 x, u8 y, u8 no)
         adder += 1;
     }
 }
-/***********������������ʾ��ʾBMPͼƬ128��64��ʼ������(x,y),x�ķ�Χ0��127��yΪҳ�ķ�Χ0��7*****************/
+
 void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char BMP[])
 {
     unsigned int j = 0;
@@ -335,17 +309,17 @@ void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned
     }
 }
 
-//��ʼ��SSD1306
+// Init_SSD1306
 void OLED_Init(void)
 {
 
     GPIO_InitTypeDef GPIO_InitStructure;
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE); //ʹ��A�˿�ʱ��
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE); 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  //�������
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; //�ٶ�50MHz
-    GPIO_Init(GPIOA, &GPIO_InitStructure);            //��ʼ��GPIOD3,6
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; //50MHz
+    GPIO_Init(GPIOA, &GPIO_InitStructure);
     GPIO_SetBits(GPIOA, GPIO_Pin_5 | GPIO_Pin_6);
 
     delay_ms(800);
