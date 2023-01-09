@@ -1,30 +1,30 @@
 /********************START***********************
- * ÏîÄ¿£ºÌì½òÀí¹¤´óÑ§´ó¶þÉÏÑ§ÆÚÏîÄ¿ÖÆ×÷¡ª¡ª·ÀÒß¼ì²â
- * Ä£¿é£ºstm32f103c8t6, 
+ * é¡¹ç›®ï¼šå¤©æ´¥ç†å·¥å¤§å­¦å¤§äºŒä¸Šå­¦æœŸé¡¹ç›®åˆ¶ä½œâ€”â€”é˜²ç–«æ£€æµ‹
+ * æ¨¡å—ï¼šstm32f103c8t6, 
  *        0.96oled, 
- *        JDY-31-SPPÀ¶ÑÀÄ£¿é,
- *        HC-SR04³¬Éù²¨²â¾à
+ *        JDY-31-SPPè“ç‰™æ¨¡å—,
+ *        HC-SR04è¶…å£°æ³¢æµ‹è·
  * 
- * ½ÓÏß£º
+ * æŽ¥çº¿ï¼š
  *       stm32f103c8t6 -> 0.96oled:
  *          GND         ->  GND
  *          VCC(3.3v)   ->  VCC
  *          PA5         ->  SCL
  *          PA6         ->  SDA
- *       stm32f103c8t6 -> HC-SR04³¬Éù²¨²â¾à:
+ *       stm32f103c8t6 -> HC-SR04è¶…å£°æ³¢æµ‹è·:
  *          VCC(5v)     ->  VCC
  *          PB8         ->  Trig
  *          PB9         ->  Echo
  *          GND         ->  GND
- *       stm32f103c8t6 -> JDY-31-SPPÀ¶ÑÀÄ£¿é£º
+ *       stm32f103c8t6 -> JDY-31-SPPè“ç‰™æ¨¡å—ï¼š
  *          PA7         ->  STATE
  *          PA9         ->  RXD
  *          PA10        ->  TXD
  *          GND         ->  GND
  *          VCC(5V)     ->  VCC
  *          <float>     ->  EN
- * ±àÒë»·¾³£º
- * 
+ * ç¼–è¯‘çŽ¯å¢ƒï¼šVSCode+EIDE
+ * ç¼–è¯‘å™¨å¯åŠ¨æ–‡ä»¶ï¼šcourse_project_building.code-workspace
  ********************END************************/
 
 
@@ -38,14 +38,14 @@
 #include "HCSR04\hcsr.h"
 #include "delay\delay.h"
 
-#define CLI() __set_PRIMASK(1)				/* ¹Ø×ÜÖÐ¶Ï */  
-#define SEI() __set_PRIMASK(0)				/* ¿ª×ÜÖÐ¶Ï */ 
+#define CLI() __set_PRIMASK(1)				/* å…³æ€»ä¸­æ–­ */  
+#define SEI() __set_PRIMASK(0)				/* å¼€æ€»ä¸­æ–­ */ 
 
-volatile u32 triger_time = 0; // 10us triger¼ÆÊ±±äÁ¿,>10us
-volatile u32 echo_time = 0;   // 10us echo¼ÆÊ±±äÁ¿, =¾àÀë*2/ÉùËÙ
-u32 distance_time = 0;				// 10us ¼ÇÂ¼echo¸ßµçÆ½Ê±¼ä
+volatile u32 triger_time = 0; // 10us trigerè®¡æ—¶å˜é‡,>10us
+volatile u32 echo_time = 0;   // 10us echoè®¡æ—¶å˜é‡, =è·ç¦»*2/å£°é€Ÿ
+u32 distance_time = 0;				// 10us è®°å½•echoé«˜ç”µå¹³æ—¶é—´
 
-uint8_t echo_flag = 0;				// echo_flag=1 ->½ÓÊÕµ½»Ø²¨ÐÅºÅ
+uint8_t echo_flag = 0;				// echo_flag=1 ->æŽ¥æ”¶åˆ°å›žæ³¢ä¿¡å·
 
 uint8_t global_arr[100];
 void delay(uint32_t tim){
@@ -56,20 +56,20 @@ void delay(uint32_t tim){
 
 
 int main(){
-  // ³õÊ¼»¯SysTick
-  // ÖÐ¶Ï³õÊ¼»¯
+  // åˆå§‹åŒ–SysTick
+  // ä¸­æ–­åˆå§‹åŒ–
   USART_Config();
 
-  // oled³õÊ¼»¯
-  delay_init();         //ÑÓÊ±º¯Êý³õÊ¼»¯
-  NVIC_Configuration(); //ÉèÖÃNVICÖÐ¶Ï·Ö×é2:2Î»ÇÀÕ¼ÓÅÏÈ¼¶£¬2Î»ÏìÓ¦ÓÅÏÈ¼¶
+  // oledåˆå§‹åŒ–
+  delay_init();         //å»¶æ—¶å‡½æ•°åˆå§‹åŒ–
+  NVIC_Configuration(); //è®¾ç½®NVICä¸­æ–­åˆ†ç»„2:2ä½æŠ¢å ä¼˜å…ˆçº§ï¼Œ2ä½å“åº”ä¼˜å…ˆçº§
   delay_ms(8000);
   GPIO_Conf();
-  OLED_Init(); //³õÊ¼»¯OLED
+  OLED_Init(); //åˆå§‹åŒ–OLED
   OLED_Clear();
 
-  // ¿ªÊ¼Ö´ÐÐmainº¯ÊýÖ÷Ìå
-  // ¼ì²éÊÇ·ñÁ¬½ÓÀ¶ÑÀ£¬Èç¹ûÃ»ÓÐÁ¬½Ó£¬¾ÍÒ»Ö±µÈ´ýÀ¶ÑÀÁ¬½Ó
+  // å¼€å§‹æ‰§è¡Œmainå‡½æ•°ä¸»ä½“
+  // æ£€æŸ¥æ˜¯å¦è¿žæŽ¥è“ç‰™ï¼Œå¦‚æžœæ²¡æœ‰è¿žæŽ¥ï¼Œå°±ä¸€ç›´ç­‰å¾…è“ç‰™è¿žæŽ¥
   while(GPIO_ReadInputDataBit(STATUS_PORT, STATUS_Pin) == 0){
     OLED_ShowString(16, 2, "Disconnect", 16);
   }
@@ -79,16 +79,16 @@ int main(){
   OLED_Clear();
   OLED_ShowString(16, 0, "Connected", 16);
 
-  // ³õÊ¼»¯³¬Éù²¨
+  // åˆå§‹åŒ–è¶…å£°æ³¢
   HCSR_GPIO_Config();
-  EXTI_Pxy_Config(); 		//ÅäÖÃPB9ÎªÉÏÉýÑØÖÐ¶Ï£¬PB9->Echo
-  /* Í¨ÓÃ¶¨Ê±Æ÷ TIMx,x[2,3,4,5] ¶¨Ê±ÅäÖÃ */	
+  EXTI_Pxy_Config(); 		//é…ç½®PB9ä¸ºä¸Šå‡æ²¿ä¸­æ–­ï¼ŒPB9->Echo
+  /* é€šç”¨å®šæ—¶å™¨ TIMx,x[2,3,4,5] å®šæ—¶é…ç½® */	
     TIMx_Configuration();
-	/* ÅäÖÃÍ¨ÓÃ¶¨Ê±Æ÷ TIMx,x[2,3,4,5]µÄÖÐ¶ÏÓÅÏÈ¼¶ */
+	/* é…ç½®é€šç”¨å®šæ—¶å™¨ TIMx,x[2,3,4,5]çš„ä¸­æ–­ä¼˜å…ˆçº§ */
 	TIMx_NVIC_Configuration();
 	macTIM_APBxClock_FUN (macTIM_CLK, ENABLE);
 
-  // Ñ­»·
+  // å¾ªçŽ¯
   float dis = 0;
   uint32_t cnt = 0;
   uint8_t  disarr[13];
@@ -107,27 +107,27 @@ int main(){
   OLED_ShowString(16, 3, disarr, 16);
   while (1)
   {
-    // ¼ì²âÊÇ·ñÓÐÎïÌå¿¿½ü
+    // æ£€æµ‹æ˜¯å¦æœ‰ç‰©ä½“é è¿‘
     Triger();
 		echo_time = 0;
 		echo_flag = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9);
-		while(echo_flag == 0)				//µÈ´ýÊÕµ½»Ø²¨ÐÅºÅ
+		while(echo_flag == 0)				//ç­‰å¾…æ”¶åˆ°å›žæ³¢ä¿¡å·
 		{
 			echo_flag = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9);
 		}
 		echo_time = 0;
-		while(echo_flag == 1)						//µÈ´ý»Ø²¨ÐÅºÅ½ÓÊÕÍê³É
+		while(echo_flag == 1)						//ç­‰å¾…å›žæ³¢ä¿¡å·æŽ¥æ”¶å®Œæˆ
 		{
 			echo_flag = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9);
 		}
 		distance_time = echo_time;
 		dis = Calculation();
-    if (dis>0.02 && dis<=0.1)   // ÔÚ×îµÍãÐÖµ2cmÒÔÉÏ£¬10cmÄÚ£¬ÓÐÎïÌå¿¿½ü
+    if (dis>0.02 && dis<=0.1)   // åœ¨æœ€ä½Žé˜ˆå€¼2cmä»¥ä¸Šï¼Œ10cmå†…ï¼Œæœ‰ç‰©ä½“é è¿‘
     {
       cnt++;
       printf("Somebody nearly: {time:%d, count:%d, distance:%.3fcm}", 000000, cnt, dis*100);
     }
-    else    // Ã»ÓÐÎïÌå¿¿½ü
+    else    // æ²¡æœ‰ç‰©ä½“é è¿‘
     {
       
     }
